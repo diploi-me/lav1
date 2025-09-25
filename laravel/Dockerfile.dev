@@ -1,0 +1,25 @@
+FROM dunglas/frankenphp:1-php8.2-alpine
+
+ARG FOLDER=/app
+
+WORKDIR ${FOLDER}
+
+RUN apk add --no-cache \
+    git \
+    curl \
+    unzip \
+    bash \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN addgroup -g 1000 devgroup && \
+    adduser -u 1000 -G devgroup -s /bin/sh -D devuser
+
+COPY --chown=devuser:devgroup . /app
+
+RUN composer install --optimize-autoloader --no-interaction
+
+USER devuser
+
+EXPOSE 80
+
+CMD ["frankenphp", "php-server"]
