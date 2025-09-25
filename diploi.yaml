@@ -4,9 +4,9 @@
 
 diploiVersion: v1.0
 components:
-  - name: Laravel
-    identifier: laravel
-    package: https://github.com/diploi/component-laravel#v12
+  - name: sad
+    identifier: ags
+    package: https://github.com/diploi/component-dsa#v12
     env:
       include:
         - postgres.*
